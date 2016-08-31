@@ -5,16 +5,12 @@ require 'rspec/expectations'
 
 #启动浏览器打开登录页面
 
-=begin
-  selenium grid xiefa
 $caps = Selenium::WebDriver::Remote::Capabilities.chrome
-$huburl = 'http://192.168.1.60:4444/wd/hub'
-$driver = Selenium::WebDriver.for(:remote,:url => $huburl,:desired_capabilities => $caps)
-=end
+$huburl = 'http://localhost:4444/wd/hub'
 
 假如(/^打开登录页面$/) do
   if $driver.nil?
-    $driver = Selenium::WebDriver.for :chrome
+    $driver = Selenium::WebDriver.for(:remote,:url => $huburl,:desired_capabilities => $caps)
   end
   $driver.manage.window.maximize
   $driver.manage.delete_all_cookies
