@@ -42,9 +42,9 @@ end
     $driver.find_element(:class,'ui_dialog').displayed?
   end
   if /^登录成功！$/ =~ $driver.find_element(:class,'ui_dialog').text then
-    puts  "登录成功呵呵呵"
+    puts  "登录成功呵呵呵2"
   else
-    puts  "登录失败呵呵呵"
+    puts  "登录失败呵呵呵2"
   end
   #关闭浏览器
   #$driver.quit
