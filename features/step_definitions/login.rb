@@ -46,17 +46,5 @@ end
   #$driver.quit
 end
 
-Given(/^WRITE SCRPITS$/) do
-  puts  'hello'
-end
-
-When(/^PUT TO GITHUB$/) do
-  puts  "hello1"
-end
-
-Then(/^IT IS OK$/) do
-  puts  'it is ok'
-end
-
 
 
