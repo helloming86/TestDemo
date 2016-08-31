@@ -16,6 +16,7 @@ $driver = Selenium::WebDriver.for(:remote,:url => $huburl,:desired_capabilities 
   if $driver.nil?
     $driver = Selenium::WebDriver.for :chrome
   end
+  $driver.manage.window.maximize
   $driver.manage.delete_all_cookies
   $driver.get "http://tranhuo.com/toLogin.html?locationurl=http://tranhuo.com/index.html"
 end
@@ -47,6 +48,18 @@ end
   end
   #关闭浏览器
   #$driver.quit
+end
+
+Given(/^WRITE SCRPITS$/) do
+  puts  'hello'
+end
+
+When(/^PUT TO GITHUB$/) do
+  puts  "hello1"
+end
+
+Then(/^IT IS OK$/) do
+  puts  'it is ok'
 end
 
 

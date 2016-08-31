@@ -1,0 +1,5 @@
+Feature: TEST JENKINS
+  Scenario: TEST JENKINS USE GITHUB
+    Given WRITE SCRPITS
+    When  PUT TO GITHUB
+    Then IT IS OK
