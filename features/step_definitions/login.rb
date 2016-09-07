@@ -2,7 +2,6 @@
 require 'selenium-webdriver'
 require 'rspec/expectations'
 
-
 #启动浏览器打开登录页面
 
 $caps = Selenium::WebDriver::Remote::Capabilities.chrome
@@ -39,11 +38,10 @@ end
   end
   if /^登录成功！$/ =~ $driver.find_element(:class,'ui_dialog').text then
     puts  "登录成功呵呵呵2"
+    $driver.quit
   else
     puts  "登录失败呵呵呵2"
   end
   #关闭浏览器
   #$driver.quit
 end
-
-
