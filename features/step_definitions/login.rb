@@ -45,3 +45,7 @@ end
   #关闭浏览器
   #$driver.quit
 end
+
+  那么(/^hello$/) do
+    puts  "hhhhh"
+  end
