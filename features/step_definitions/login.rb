@@ -3,7 +3,6 @@ require 'selenium-webdriver'
 require 'rspec/expectations'
 
 #启动浏览器打开登录页面
-
 $caps = Selenium::WebDriver::Remote::Capabilities.chrome
 $huburl = 'http://localhost:4444/wd/hub'
 
