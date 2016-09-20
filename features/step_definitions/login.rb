@@ -3,7 +3,7 @@ require 'selenium-webdriver'
 require 'rspec/expectations'
 
 #启动浏览器打开登录页面
-$caps = Selenium::WebDriver::Remote::Capabilities.firefox marionette: true, firefox_binary: "/path/to/firefox"
+$caps = Selenium::WebDriver::Remote::Capabilities.firefox
 $huburl = 'http://localhost:4444/wd/hub'
 
 假如(/^打开登录页面$/) do
