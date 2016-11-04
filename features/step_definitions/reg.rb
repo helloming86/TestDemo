@@ -1,9 +1,9 @@
 #encoding=utf-8
+require 'rubygems'
 require 'selenium-webdriver'
 require 'rspec/expectations'
 require 'pp'
 require 'mysql2'
-
 
 #启动浏览器打开登录页面
 $caps = Selenium::WebDriver::Remote::Capabilities.chrome
@@ -19,8 +19,8 @@ $huburl = 'http://localhost:4444/wd/hub'
 end
 
 当(/^输入手机号和密码$/) do
-  $driver.find_element(:id,'phone').send_keys('17811111145')
-  $driver.find_element(:id,'pasword').send_keys('123123')
+  $driver.find_element(:id,'phone').send_keys('17911111165')
+  $driver.find_element(:id,'password').send_keys('123123')
 end
 
 同时(/^选择我是厂家$/) do
@@ -32,27 +32,32 @@ end
 end
 
 当(/^提示验证码获取成功后输入验证码$/) do
-  wait = Selenium::WebDriver::Wait.new(timeout: 10)
+  wait = Selenium::WebDriver::Wait.new(timeout: 5)
   wait.until do
     $driver.find_element(:class,'ui_dialog').displayed?
   end
-  if /^验证码发送成功$/ =~ $driver.find_element(:class,'ui_dialog').text then
-    puts  "验证码已获取"
+  if /^验证码发送成功！$/ =~ $driver.find_element(:class,'ui_dialog').text then
+    puts  "验证码已发送"
     #连接mysql数据库，获取验证码
+    puts  "连接数据库，获取验证码"
     client = Mysql2::Client.new(:host => "114.55.86.57", :username => "root",:password => "315625",:database => "qtkj_fmcgbn_test",:port => "3306")
-    results = client.query("SELECT code FROM t_sms_record where mobile = '17811111145' ORDER BY date DESC LIMIT 1")
+    results = client.query("SELECT code FROM t_sms_record where mobile = '17911111165' ORDER BY date DESC LIMIT 1")
+    rcode = Hash.new
     results.each do |regcode|
-      puts regcode
+        puts regcode
+        rcode = regcode
     end
-    puts  "获取的验证码是：" + regcode
-
-    $driver.find_element(:id,'code').send_keys(regcode)
+    puts rcode
+    puts  "获取的验证码是：" + rcode['code']
+    $driver.find_element(:id,'code').send_keys("#{rcode['code']}")
   else
-    puts  "该手机号码不能注册"
+    puts  "验证码获取失败"
+    puts  "失败原因：" + $driver.find_element(:class,'ui_dialog').text
   end
 end
 
 并且(/^点击注册账号$/) do
+  sleep 6 #因为注册页面在验证码和注册都有弹窗提示，故在提交注册前等待6秒，确保两个弹窗能分别获取和处理
   $driver.find_element(:id,'submit1').click
 end
 
@@ -63,30 +68,31 @@ end
   wait.until do
     $driver.find_element(:class,'ui_dialog').displayed?
   end
-  if /^注册成功！$/ =~ $driver.find_element(:class,'ui_dialog').text then
-    puts "用户注册成功"
+  puts "弹窗提示：" + $driver.find_element(:class,'ui_dialog').text
+  if /注册成功/ =~ $driver.find_element(:class,'ui_dialog').text then
+    @regstat = true
   else
-    puts "用户注册失败"
+    @regstat = false
   end
 end
 
-那么(/^厂家注册成功并跳转至厂家资料维护页面$/) do
-  #捕获新窗口
+那么(/^注册成功并跳转至厂家资料维护页面$/) do
+  #判断是否注册成功
+  if @regstat then
+    puts @regstat
+    puts "注册成功"
+  else
+    puts "注册失败"
+  end
 
-  #所有窗口句柄
-  hs = $driver.window_handles
-  #当前窗口句柄
-  ch = $driver.window_handle
-
-  pp hs
-  pp ch
-
-  hs.each do |h|
-    unless h==ch
-      p $driver.title
-      $driver.switch_to.window(h)
-      p $driver.title
-    end
+  #正则表达式判断跳转页面是否正常
+  sleep 5
+  if /user\/info0.do/ =~ $driver.current_url then
+    puts "页面正确跳转"
+    puts "跳转页面的Title为：#{$driver.title}"
+    puts "跳转页面的URL为：#{$driver.current_url}"
+  else
+    puts  "页面未正确跳转"
   end
 
 end
