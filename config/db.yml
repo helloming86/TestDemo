@@ -1,0 +1,8 @@
+#mysql link
+test:
+  apapter: mysql
+  database: qtkj_fmcgbn_test
+  username: root
+  password: 315625
+  host: 114.55.86.57
+  port: 3306

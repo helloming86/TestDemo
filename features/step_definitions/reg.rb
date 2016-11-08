@@ -4,6 +4,7 @@ require 'selenium-webdriver'
 require 'rspec/expectations'
 require 'pp'
 require 'mysql2'
+require 'yaml'
 
 #启动浏览器打开登录页面
 $caps = Selenium::WebDriver::Remote::Capabilities.chrome
@@ -19,7 +20,7 @@ $huburl = 'http://localhost:4444/wd/hub'
 end
 
 当(/^输入手机号和密码$/) do
-  $driver.find_element(:id,'phone').send_keys('17911111165')
+  $driver.find_element(:id,'phone').send_keys('17911111166')
   $driver.find_element(:id,'password').send_keys('123123')
 end
 
@@ -39,17 +40,32 @@ end
   if /^验证码发送成功！$/ =~ $driver.find_element(:class,'ui_dialog').text then
     puts  "验证码已发送"
     #连接mysql数据库，获取验证码
+    puts  "获取数据库配置文件"
+    puts Dir.pwd
+    puts Dir.chdir(File.dirname(__FILE__))
+    dblk = YAML.load(File.open("E:\\RubyTestProject\\TestDemo\\features\\step_definitions\\db.yaml"))
+    puts "获取到的数据库IP：" + dblk["test"]["host"].to_s
+    puts "获取到的数据库Port：" + dblk["test"]["port"].to_s
+    puts "获取到的数据库实例名：" + dblk["test"]["database"].to_s
+    puts "获取到的数据库用户名：" + dblk["test"]["username"].to_s
+    puts "获取到的数据库密码：" + dblk["test"]["password"].to_s
     puts  "连接数据库，获取验证码"
-    client = Mysql2::Client.new(:host => "114.55.86.57", :username => "root",:password => "315625",:database => "qtkj_fmcgbn_test",:port => "3306")
-    results = client.query("SELECT code FROM t_sms_record where mobile = '17911111165' ORDER BY date DESC LIMIT 1")
-    rcode = Hash.new
-    results.each do |regcode|
-        puts regcode
-        rcode = regcode
+    client = Mysql2::Client.new(:host => "#{dblk["test"]["host"].to_s}", :username => "#{dblk["test"]["username"].to_s}",:password => "#{dblk["test"]["password"].to_s}",:database => "#{dblk["test"]["database"].to_s}",:port => "#{dblk["test"]["port"].to_s}")
+    #client = Mysql2::Client.new(:host => "114.55.86.57", :username => "root",:password => "315625",:database => "qtkj_fmcgbn_test",:port => "3306")
+    results = client.query("SELECT code FROM t_sms_record where mobile = '17911111166' ORDER BY date DESC LIMIT 1")
+    if results.count == 0 then
+      puts "未查询到验证码，进程终止"
+      $driver.quit
+    else
+      rcode = Hash.new
+      results.each do |regcode|
+          puts regcode
+          rcode = regcode
+      end
+      puts rcode
+      puts  "获取的验证码是：" + rcode['code']
+      $driver.find_element(:id,'code').send_keys("#{rcode['code']}")
     end
-    puts rcode
-    puts  "获取的验证码是：" + rcode['code']
-    $driver.find_element(:id,'code').send_keys("#{rcode['code']}")
   else
     puts  "验证码获取失败"
     puts  "失败原因：" + $driver.find_element(:class,'ui_dialog').text
