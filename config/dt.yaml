@@ -1,0 +1,9 @@
+#user for test
+testuser:
+  phone: 17911111204
+  password: 123123
+  comname: 204号测试账户
+  comadd: 郑州市绿地新都会
+  comtel: 17911111204
+  comintro: 这个是公司简介
+  combrand: 大品牌

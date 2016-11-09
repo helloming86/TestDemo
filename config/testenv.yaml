@@ -7,12 +7,6 @@ testurl:
   loginurl: http://tranhuo.cn:8086/toLogin.html?locationurl=http://tranhuo.cn:8086/
   regurl: http://tranhuo.cn:8086/toRegister.html
 
-#user for test
-testuser:
-  phone: 17911111167
-  password: 123123
-
-
 #mysql link
 testdb:
   apapter: mysql
