@@ -4,6 +4,7 @@ visgrid:
 
 #url info for test env
 testurl:
+  srcurl: http://tranhuo.cn:8086
   loginurl: http://tranhuo.cn:8086/toLogin.html?locationurl=http://tranhuo.cn:8086/
   regurl: http://tranhuo.cn:8086/toRegister.html
 

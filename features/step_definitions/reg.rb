@@ -17,9 +17,10 @@ $caps = Selenium::WebDriver::Remote::Capabilities.chrome
 $huburl = ttenv["visgrid"]["hubrul"]
 
 假如(/^打开注册页面$/) do
-  if $driver.nil?
-    $driver = Selenium::WebDriver.for(:remote,:url => $huburl,:desired_capabilities => $caps)
-  end
+  #打开浏览器，方法一，远程调用，保证多人开发时环境是统一的
+  #$driver = Selenium::WebDriver.for(:remote,:url => $huburl,:desired_capabilities => $caps)
+  #打开浏览器，方法二，本地调用
+  $driver = Selenium::WebDriver.for :chrome
   $driver.manage.window.maximize
   $driver.manage.delete_all_cookies
   $driver.get ttenv["testurl"]["regurl"]
@@ -112,28 +113,54 @@ end
   $driver.find_element(:css,'input[name=name]').send_keys(dt["testuser"]["comname"])
   $driver.find_element(:css,'input[name=companyAddress]').send_keys(dt["testuser"]["comadd"])
   $driver.find_element(:css,'input[name=companyTel]').send_keys(dt["testuser"]["comtel"])
+
   #iframe定位，有id或者name的定位方法
   #$driver.switch_to.frame('ke-edit-iframe')
   #$driver.find_element(:class,'ke-content').send_keys(ttenv["testuser"]["comintro"])
   #$driver.switch_to.default_content
 
+  #本例，公司简介使用了iframe且没有id和name
   #iframe定位，没有id和name，使用小path定位
   $driver.switch_to.frame($driver.find_element(:xpath,'//*[@id="two_main"]/div/div/div/div[7]/div[2]/div[2]/iframe'))
   $driver.find_element(:class,'ke-content').send_keys(dt["testuser"]["comintro"])
   $driver.switch_to.default_content
+
   $driver.find_element(:css,'input[name=brandName]').send_keys(dt["testuser"]["combrand"])
 end
 
-同时(/^上传logo和证书$/) do
+而且(/^上传logo和证书$/) do
   img_path = File.dirname(__FILE__) + '/../../image/pass.png'
-  puts img_path.to_s
-  #使用的flash插件操作上传文件，不能使用通用send_keys方式来实现上传
+  exe_path = File.dirname(__FILE__) + '/../../vendor/uploadfile.exe'
+
+  #如果上传文件使用的input，则使用类似下面的方式处理
   #$driver.find_element(:name,'file').send_keys(/../../image/pass.png)
 
-  #使用autoit插件进行操作
-  puts "heheh"
+  #如果使用的flash插件操作上传文件，不能使用通用send_keys方式来实现上传
+  #本例，使用AutoIt操作弹出的上传图片选择框
+  #具体做法，方法一
+  #1.Windows下，使用AutoIt编写脚本完成上传图片操作并生成EXE
+  #2.自动化脚本，打开上传窗口
+  #3.自动化脚本，调用AutoIt可执行程序
+  #具体做法，方法二
+  #1.自动化脚本里面操作AutoIt（方法二未执行成功，控制台报错，待解决）
+
+  #使用方法一操作上传文件
+  puts "打开logo上传文件弹窗"
   $driver.find_element(:id,'KindEditor_SWFUpload_1').click
-  puts "hahah"
+  puts "调用AutoIt可执行程序操作上传文件"
+  system exe_path
+  sleep 1
+
+  puts "打开资质上传文件弹窗"
+  $driver.find_element(:id,'KindEditor_SWFUpload_0').click
+  puts "调用AutoIt可执行程序操作上传文件"
+  system exe_path
+  sleep 1
+
+  #使用方法二操作上传文件，未成功，需要调试
+  #puts "打开上传文件弹窗"
+  #$driver.find_element(:id,'KindEditor_SWFUpload_1').click
+  #自动化脚本操作AutoIt
   #$autoit = WIN32OLE.new('AutoItX3.Control')
   #$autoit.WinActivate("打开")
   #$autoit.WinWaitActive("开")
@@ -141,32 +168,42 @@ end
   #$autoit.Sleep(2000)
   #$autoit.ControlClick("打开", "", "Button1")
   #sleep 5
-  system 'E:\uploadfile.exe'
-  sleep 10
+
 end
 
 并且(/^选择地区和主营产品$/) do
   $driver.find_element(:name,'province').find_elements(:tag_name, 'option')[1].click()
-  sleep(1)
+  sleep 1
   $driver.find_element(:name,'city').find_elements(:tag_name, 'option')[1].click()
-  sleep(1)
+  sleep 1
   $driver.find_element(:name,'area').find_elements(:tag_name, 'option')[1].click()
-  sleep(1)
+  sleep 1
   $driver.find_element(:id,'dq_1').click
 end
 
-那么(/^点击提交$/) do
+同时(/^点击提交$/) do
+  sleep 1
   $driver.find_element(:css, 'input[type=submit]').click()
 end
 
-当(/^提示成功$/) do
-  puts "成功"
-end
-
-并且(/^跳转至成功页面$/) do
-  puts "跳转"
+假如(/^跳转至成功页面$/) do
+  sleep 2
+  if /reg\/success\/0.do/ =~ $driver.current_url then
+    puts "页面正确跳转"
+    puts "跳转页面的Title为：#{$driver.title}"
+    puts "跳转页面的URL为：#{$driver.current_url}"
+    @regstat1 = true
+  else
+    puts  "页面未正确跳转"
+    @regstat1 = false
+  end
 end
 
 那么(/^注册厂家流程正常$/) do
-  puts "结束"
+  if @regstat1 then
+    puts "注册厂家流程正常"
+  else
+    puts "注册流程异常"
+  end
+  $driver.quit
 end
