@@ -27,7 +27,7 @@ end
   if /^正确$/ =~ uinfo
       $driver.find_element(:id,'loginPwd').send_keys(dt["testuser"]["password"])
     else
-      $driver.find_element(:id,'loginPwd').send_keys('135790')
+      $driver.find_element(:id,'loginPwd').send_keys('123123')
   end
 end
 
@@ -44,6 +44,7 @@ end
   end
   if /^登录成功！$/ =~ $driver.find_element(:class,'ui_dialog').text then
     puts  "登录成功呵呵呵2"
+    p $driver.manage.all_cookies
   else
     puts  "登录失败呵呵呵2"
   end
