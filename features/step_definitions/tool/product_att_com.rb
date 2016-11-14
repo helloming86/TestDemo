@@ -41,11 +41,23 @@ module Product_Att_Com
     def get_ProTrynum
         @dr.find_element(:id,'num')
     end
-    def get_ProTryfee
+    def get_ProTryreport
         @dr.find_element(:id,'report').find_elements(:tag_name, 'option')[0]
     end
     #招商政策iframe,因为没有id和name，所以用xpath定位
     def get_ProPolicy
       @dr.find_element(:xpath,'//*[@id="form1"]/div/div[2]/div[14]/div[2]/div[2]/iframe')
+    end
+    #发布按钮
+    def get_ProAddBut
+      @dr.find_element(:xpath,'//*[@id="form1"]/div/div[2]/div[15]/input[4]')
+      #下面的方法未定位到，原因未知
+      #@dr.find_element(:css, 'input[type=submit]')
+    end
+    #预览按钮
+    def get_proPreBut
+      @dr.find_element(:xpath,'//*[@id="form1"]/div/div[2]/div[15]/input[3]')
+      #下面的方法未定位到，原因未知
+      #@dr.find_element(:css, 'input[type=button]')
     end
 end

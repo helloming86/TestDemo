@@ -25,6 +25,6 @@ class Upload_file
         end
         # 调用并执行AutoIt
         autoit_do
-        sleep 1
+        sleep 5
     end
 end

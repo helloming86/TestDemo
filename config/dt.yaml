@@ -2,8 +2,15 @@
 testuser:
   phone: 17811111204
   password: 123123
+  password1: 987654
   comname: 204号测试账户
   comadd: 郑州市绿地新都会
   comtel: 17811111204
   comintro: 这个是公司简介
   combrand: 大品牌
+
+#cookie for test
+testcookie:
+  jssion: B5AD6F68AE071E2AC244A73A3FADF1D0
+  juname: 17811111112
+  jpwd: 8758F78AFCAFC134978E05D6AE679479

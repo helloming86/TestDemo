@@ -20,6 +20,8 @@ class Add_Product
     def setProItem
       get_ProItem.click
       @dr.execute_script('$("#select_job").val("休闲食品").click();')
+      #间接实现选择分类后关闭分类弹窗
+      get_ProName.click
     end
     def setProArea
       get_ProArea.click
@@ -34,16 +36,24 @@ class Add_Product
     #试用，0表示不试用，1表示试用
     def setProTry(trytype)
       get_ProTry(trytype).click
-      if trytype = 1
+      if trytype == 1
         get_ProTryfee.send_keys('1')
         get_ProTrypost.send_keys('2')
         get_ProTrynum.send_keys('100')
-        get_ProTryfee.click
+        get_ProTryreport.click
       end
     end
     def setProPolicy
       @dr.switch_to.frame(get_ProPolicy)
       @dr.find_element(:class,'ke-content').send_keys("呵呵呵呵，这个是招商政策")
       @dr.switch_to.default_content
+    end
+
+    def do_AddPro
+      get_ProAddBut.click
+    end
+
+    def do_PrePro
+      get_proPreBut.click
     end
 end
