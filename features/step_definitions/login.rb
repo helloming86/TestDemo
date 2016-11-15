@@ -32,6 +32,13 @@ end
 那么(/^弹出(.*)登录提示$/) do |ustat|
   @driver = Check_Dialog.new($driver)
   @checkdialog = @driver.checkdialog(ustat)
-  #关闭浏览器
+end
+
+那么(/^登录功能正常$/) do
+  if @checkdialog then
+    puts "检查点通过验证，登录功能正常"
+  else
+    puts "检查点未通过验证，登录功能异常"
+  end
   $driver.quit
 end
