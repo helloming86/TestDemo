@@ -3,11 +3,11 @@ require 'selenium-webdriver'
 require 'rspec/expectations'
 require 'yaml'
 
-require File.dirname(__FILE__)+'/action/reg_login.rb'
+require File.dirname(__FILE__)+'/action/reg_login_page.rb'
 require File.dirname(__FILE__)+'/action/check_method.rb'
 
 #读取文件，加载环境参数
-ttenv = YAML.load(File.open(File.dirname(__FILE__) + '/../../config/testenv.yaml'))
+ttenv = YAML.load(File.open(File.dirname(__FILE__) + '/../support/test_data/testenv.yaml'))
 
 假如(/^打开登录页面$/) do
   $driver = Selenium::WebDriver.for :chrome
@@ -16,15 +16,9 @@ ttenv = YAML.load(File.open(File.dirname(__FILE__) + '/../../config/testenv.yaml
   $driver.get ttenv["testurl"]["loginurl"]
 end
 
-同时(/^输入(.*)的用户名和密码$/) do |uinfo|
-  @driver = User_Login.new($driver)
-  @driver.setLoginName
-  @driver.setLoginPwd(uinfo)
-end
-
-而且(/^点击登录按钮$/) do
-  @driver = User_Login.new($driver)
-  @driver.do_Login
+同时(/^输入(.*)的用户名和密码并登陆$/) do |uinfo|
+  @driver = User_Login_Page.new($driver)
+  @driver.login(uinfo)
 end
 
 #检查点：登录成功的弹窗和提示

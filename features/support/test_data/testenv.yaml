@@ -1,0 +1,20 @@
+#visgrid config
+visgrid:
+  hubrul: http://localhost:4444/wd/hub
+
+#url info for test env
+testurl:
+  srcurl: http://tranhuo.cn:8086
+  loginurl: http://tranhuo.cn:8086/toLogin.html?locationurl=http://tranhuo.cn:8086/
+  regurl: http://tranhuo.cn:8086/toRegister.html
+  addprocurl: http://tranhuo.cn:8086/user/toProductPublish2.do?pageIndex=1
+  addsupplyurl: http://tranhuo.cn:8086/toAddSupplyDemand.html
+
+#mysql link
+testdb:
+  apapter: mysql
+  database: qtkj_fmcgbn_test
+  username: root
+  password: 315625
+  host: 114.55.86.57
+  port: 3306
