@@ -2,9 +2,6 @@
 require 'selenium-webdriver'
 require 'mysql2'
 
-class Check_Ajax
-
-end
 
 class Check_AuthCode
 
@@ -55,8 +52,8 @@ class Check_Dialog
       @dr.find_element(:class,'ui_dialog').displayed?
     end
     unless textinfo == ''
-      puts "弹窗提示：" + @dr.find_element(:class,'ui_dialog').text
       puts "校验信息：#{textinfo}"
+      puts "弹窗提示：" + @dr.find_element(:class,'ui_dialog').text
       if /#{textinfo}/ =~ @dr.find_element(:class,'ui_dialog').text then
         checkstat = true
       else

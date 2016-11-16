@@ -37,6 +37,7 @@ class Add_Product_Page
         get_ProTrypost.send_keys('2')
         get_ProTrynum.send_keys('100')
         get_ProTryreport.click
+
       end
       #上传图片
       @dr1 = Upload_file.new(@dr)
@@ -49,6 +50,7 @@ class Add_Product_Page
       @dr.switch_to.default_content
       #点击发布
       get_ProAddBut.click
+
     end
 
     def prevProdcut

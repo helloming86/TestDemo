@@ -1,5 +1,7 @@
 #encoding=utf-8
 require 'selenium-webdriver'
+require 'net/http'
+require 'json'
 
 require File.dirname(__FILE__)+'/action/add_supply_page.rb'
 require File.dirname(__FILE__)+'/action/br_op.rb'
@@ -13,8 +15,6 @@ end
 同时(/^维护供需基本信息并点击提交$/) do
   @driver = Add_Supply_Page.new(@drr)
   @driver.addsupply
-  @driver.get_Message
-  @driver.get_Ajax
 end
 
 #检查点
