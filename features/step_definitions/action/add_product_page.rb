@@ -1,8 +1,10 @@
 # encoding=utf-8
 require 'selenium-webdriver'
-require File.dirname(__FILE__) + '/../tool/product_att_com.rb'
 
-class Add_Product
+require File.dirname(__FILE__) + '/../tool/product_att_com.rb'
+require File.dirname(__FILE__)+'/upload_file.rb'
+
+class Add_Product_Page
     # 引用module
     include Product_Att_Com
 
@@ -11,49 +13,54 @@ class Add_Product
         @dr ||= dr
     end
 
-    def setProTemp
+    def addProduct(trytype)
+      #选择产品模板
       get_ProTemp.click
-    end
-    def setProName
+      #设置产品名称
       get_ProName.send_keys('测试新增产品')
-    end
-    def setProItem
+      #选择产品类别
       get_ProItem.click
-      @dr.execute_script('$("#select_job").val("休闲食品").click();')
+      sleep 1
+      @dr.find_element(:xpath => '//*[@id="sub_box_job"]/dl[1]/dd/ul/li[1]/span').click
       #间接实现选择分类后关闭分类弹窗
       get_ProName.click
-    end
-    def setProArea
+      #选择区域
       get_ProArea.click
-    end
-    def setProCrowd
+      #选择人群
       get_ProCrowd.click
-    end
-    def setProChannel
+      #选择渠道
       get_ProChannel.click
-    end
-
-    #试用，0表示不试用，1表示试用
-    def setProTry(trytype)
+      #设置试用，0表示不试用，1表示试用
       get_ProTry(trytype).click
-      if trytype == 1
+      if trytype == '可'
         get_ProTryfee.send_keys('1')
         get_ProTrypost.send_keys('2')
         get_ProTrynum.send_keys('100')
         get_ProTryreport.click
       end
-    end
-    def setProPolicy
+      #上传图片
+      @dr1 = Upload_file.new(@dr)
+      @dr1.upload('propic')
+      @dr1.upload('prodetpic')
+
+      #设置招商政策
       @dr.switch_to.frame(get_ProPolicy)
       @dr.find_element(:class,'ke-content').send_keys("呵呵呵呵，这个是招商政策")
       @dr.switch_to.default_content
-    end
-
-    def do_AddPro
+      #点击发布
       get_ProAddBut.click
     end
 
-    def do_PrePro
+    def prevProdcut
+      #点击预览
       get_proPreBut.click
+    end
+
+    def get_Message
+      puts "弹窗信息"
+    end
+
+    def get_Ajax
+      puts "Ajax信息"
     end
 end

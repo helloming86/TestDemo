@@ -29,7 +29,11 @@ module Product_Att_Com
     #产品图片和产品详情是图片，包含在上传类中
     #选择是否试用，0不可试用，1可使用
     def get_ProTry(trytype)
-      @dr.find_element(:id,'is_try').find_elements(:tag_name,'option')[trytype]
+      if trytype='可'
+        @dr.find_element(:id,'is_try').find_elements(:tag_name,'option')[1]
+      else
+        @dr.find_element(:id,'is_try').find_elements(:tag_name,'option')[0]
+      end
     end
     #试用参数
     def get_ProTryfee
@@ -51,12 +55,14 @@ module Product_Att_Com
     #发布按钮
     def get_ProAddBut
       @dr.find_element(:xpath,'//*[@id="form1"]/div/div[2]/div[15]/input[4]')
+      #@dr.find_element(:class,'Res_btn02 Res_btn')
       #下面的方法未定位到，原因未知
       #@dr.find_element(:css, 'input[type=submit]')
     end
     #预览按钮
     def get_proPreBut
       @dr.find_element(:xpath,'//*[@id="form1"]/div/div[2]/div[15]/input[3]')
+      #@dr.find_element(:class,'Res_btn')
       #下面的方法未定位到，原因未知
       #@dr.find_element(:css, 'input[type=button]')
     end

@@ -1,5 +1,4 @@
 # encoding=utf-8
-require 'watir'
 require 'selenium-webdriver'
 
 require File.dirname(__FILE__) + '/../tool/supply_com.rb'
@@ -16,14 +15,16 @@ class Add_Supply_Page
     def addsupply
 
       #选择类别
-      get_InfoType.select '#1'
+      get_InfoType.click
 
       #维护Title
-      get_SupTitle.set('测试新增供需')
+      get_SupTitle.send_keys('测试新增供需')
 
       #设置产品类别
       get_ProItem1.click
+      sleep 2
       # 间接实现选择分类后关闭分类弹窗
+      @dr.find_element(:xpath,'//*[@id="sub_box_job"]/dl[1]/dd/ul/li[1]').click
       get_SupTitle.click
 
       #选择区域
@@ -36,15 +37,17 @@ class Add_Supply_Page
       get_ProChannel1.click
 
       #维护详情
-      get_SupDetail.send_keys('测试新增供需的详情')
+      @dr.switch_to.frame(get_SupDetail)
+      @dr.find_element(:class,'ke-content').send_keys("测试新增供需的详情呵呵呵呵呵呵哈哈哈哈哈哈哈哈哈")
+      @dr.switch_to.default_content
 
       #维护发布人信息
-      getUname.set('发布人名字')
-      getUadd.set('发布人地址')
-      getUcont.set('17811111112')
-      getUtel.set('17811111112')
-      getUqq.set('17811111112')
-      getUmail.set('17811111112@qtcem.com')
+      getUname.send_keys('发布人名字')
+      getUadd.send_keys('发布人地址')
+      getUcont.send_keys('17811111112')
+      getUtel.send_keys('17811111112')
+      getUqq.send_keys('17811111112')
+      getUmail.send_keys('17811111112@qtcem.com')
 
       #点击发布
       get_SupBtn1.click

@@ -1,18 +1,10 @@
 #encoding=utf-8
-require 'watir'
 require 'selenium-webdriver'
-require 'rspec/expectations'
-require 'mysql2'
-require 'yaml'
-require 'active_support/all'
 
-require File.dirname(__FILE__)+'/../support/common.rb'
-require File.dirname(__FILE__)+'/tool/supply_com.rb'
 require File.dirname(__FILE__)+'/action/add_supply_page.rb'
+require File.dirname(__FILE__)+'/action/br_op.rb'
 
 假如(/^打开发布供需页面$/) do
-  #$driver = Watir::Browser.new :chrome,在hooks.rb已经处理
-  #$driver.window.maximize，在hooks.rb已经处理
   @driver = Br_Op.new(@drr)
   @driver.visit('addsupplyurl')
 end
@@ -35,7 +27,7 @@ end
   puts "跳转成功"
 end
 
-那么(/^发布产品功能正常$/) do
+那么(/^发布供求功能正常$/) do
   puts "功能正常"
-  #$driver.close，在hooks.rb已经处理
+  sleep 10
 end

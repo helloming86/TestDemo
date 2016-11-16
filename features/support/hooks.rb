@@ -1,16 +1,20 @@
-require 'watir'
 require 'selenium-webdriver'
+require 'yaml'
 
 Before do
-  #Before("@hotel") do          #tagged hooks
+
   puts "This is before hook."
-  @drr = Watir::Browser.new :chrome
-  @drr.window.maximize
+  DT = YAML.load(File.open(File.dirname(__FILE__) + '/test_data/dt.yaml'))
+  TTENV = YAML.load(File.open(File.dirname(__FILE__) + '/test_data/testenv.yaml'))
+  #@drr = Watir::Browser.new :chrome
+  #@drr.window.maximize
+  @drr = Selenium::WebDriver.for :chrome
+  @drr.manage.window.maximize
 end
 
 After do
-  #After("@hotel") do           #tagged hooks
+
   puts "This is after hook."
-  @drr.close
-  
+  @drr.quit
+
 end
