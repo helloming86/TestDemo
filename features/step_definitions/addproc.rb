@@ -14,8 +14,6 @@ end
 而且(/^维护(.*)试用产品并提交$/) do |trysta|
   @driver = Add_Product_Page.new(@drr)
   @driver.addProduct(trysta)
-  @driver.get_Message
-  @driver.get_Ajax
 end
 
 当(/^提示发布产品成功$/) do
@@ -25,9 +23,8 @@ end
 
 
 并且(/^跳转至厂家产品列表页$/) do
-  sleep 5
   @driver = Check_PageJump.new(@drr)
-  @checkpage = @driver.checkpagejump('toProductMngList.do?page')
+  @checkpage = @driver.checkpagejump(TTENV["testurl"]["comprolisturl"])
 end
 
 那么(/^发布产品功能验证通过$/) do

@@ -15,4 +15,35 @@ module Reg_Login_Com
     def get_LoginBtn
       @dr.find_element(:id,'loginSubmit')
     end
+
+    def get_RegPhone
+      @dr.find_element(:id,'phone')
+    end
+
+    def get_RegPwd
+      @dr.find_element(:id,'password')
+    end
+
+    def get_RegType(regtype)
+      #0表示厂家，1表示经销商
+      if regtype == 0
+        @dr.find_element(:class,'guide_c').find_element(:id,'three1')
+      else
+        @dr.find_element(:class,'guide_c').find_element(:id,'three2')
+      end
+    end
+
+    def get_RegCode
+      @dr.find_element(:id,'getcheckCode')
+    end
+
+    def get_EnterCode
+      @dr.find_element(:id,'code')
+    end
+
+    def get_RegBtn
+      @dr.find_element(:id,'submit1')
+    end
+
+
 end

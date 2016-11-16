@@ -20,14 +20,19 @@ end
 #检查点
 
 当(/^提示发布需求成功$/) do
-  puts "提示信息"
+  @driver = Check_Dialog.new(@drr)
+  @checkdialog = @driver.checkdialog('发布成功')
 end
 
 并且(/^跳转至供求列表页$/) do
-  puts "跳转成功"
+  @driver = Check_PageJump.new(@drr)
+  @checkpage = @driver.checkpagejump(TTENV["testurl"]["suplisturl"])
 end
 
 那么(/^发布供求功能正常$/) do
-  puts "功能正常"
-  sleep 10
+  if @checkdialog and @checkpage
+    puts "检查点通过验证，注册用户功能正常"
+  else
+    puts "检查点未通过验证，注册用户功能异常"
+  end
 end

@@ -29,10 +29,10 @@ module Product_Att_Com
     #产品图片和产品详情是图片，包含在上传类中
     #选择是否试用，0不可试用，1可使用
     def get_ProTry(trytype)
-      if trytype='可'
-        @dr.find_element(:id,'is_try').find_elements(:tag_name,'option')[1]
-      else
+      if trytype == '不可'
         @dr.find_element(:id,'is_try').find_elements(:tag_name,'option')[0]
+      else
+        @dr.find_element(:id,'is_try').find_elements(:tag_name,'option')[1]
       end
     end
     #试用参数

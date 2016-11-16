@@ -7,9 +7,12 @@ testurl:
   srcurl: http://tranhuo.cn:8086
   loginurl: http://tranhuo.cn:8086/toLogin.html?locationurl=http://tranhuo.cn:8086/
   regurl: http://tranhuo.cn:8086/toRegister.html
+  regtoinfourl1: http://tranhuo.cn:8086/user/info0.do
+  regtoinfourl2: http://tranhuo.cn:8086/user/info2.do
   addprocurl: http://tranhuo.cn:8086/user/toProductPublish2.do?pageIndex=1
+  comprolisturl: http://tranhuo.cn:8086/user/toProductMngList.do?page=1
   addsupplyurl: http://tranhuo.cn:8086/toAddSupplyDemand.html
-
+  suplisturl: http://tranhuo.cn:8086/supply_demands.html
 #mysql link
 testdb:
   apapter: mysql
