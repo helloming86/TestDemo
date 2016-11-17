@@ -56,12 +56,9 @@ class Check_Dialog
       puts "弹窗提示：" + @dr.find_element(:class,'ui_dialog').text
       if /#{textinfo}/ =~ @dr.find_element(:class,'ui_dialog').text then
         checkstat = true
-      else
-        checkstat = false
-      end
-      if checkstat then
         puts "弹窗提示与校验信息匹配，测试通过"
       else
+        checkstat = false
         puts "弹窗提示与校验信息不匹配，测试不通过"
       end
       puts checkstat
@@ -78,11 +75,11 @@ class Check_PageJump
   end
 
   def checkpagejump(textinfo)
-    puts "校验信息为：" + textinfo
-    puts "刚执行校验页面跳转方法的页面：" + @dr.current_url
+    puts "校验信息为(" + textinfo + ")"
+    puts "刚执行校验页面跳转方法的页面(" + @dr.current_url + ")"
     sleep 5
-    puts "等待5秒后的页面：" + @dr.current_url
-    if /#{textinfo}/ =~ @dr.current_url then
+    puts "等待5秒后的页面(" + @dr.current_url + ")"
+    if textinfo == @dr.current_url then
       puts "页面正确跳转"
       puts "跳转页面的Title为：#{@dr.title}"
       puts "跳转页面的URL为：#{@dr.current_url}"

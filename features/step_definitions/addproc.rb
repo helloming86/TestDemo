@@ -16,19 +16,13 @@ end
   @driver.addProduct(trysta)
 end
 
-当(/^提示发布产品成功$/) do
-  @driver = Check_Dialog.new(@drr)
-  @checkdialog = @driver.checkdialog('发布成功')
-end
-
-
-并且(/^跳转至厂家产品列表页$/) do
+当(/^跳转至厂家产品列表页$/) do
   @driver = Check_PageJump.new(@drr)
   @checkpage = @driver.checkpagejump(TTENV["testurl"]["comprolisturl"])
 end
 
 那么(/^发布产品功能验证通过$/) do
-  if @checkdialog and @checkpage
+  if  @checkpage
     puts "检查点通过验证，发布产品功能正常"
   else
     puts "检查点未通过验证，发布产品功能异常"

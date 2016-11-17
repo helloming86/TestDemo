@@ -53,15 +53,6 @@ class Add_Supply_Page
       #点击发布
       get_SupBtn1.click
 
-      # 所有的window handles
-      hs = @dr.window_handles
-
-      # 当前的window handle
-      ch = @dr.window_handle
-
-      pp hs
-      pp ch
-
     end
 
     def cancleAddSupply
