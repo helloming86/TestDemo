@@ -22,6 +22,7 @@ end
 end
 
 那么(/^发布产品功能验证通过$/) do
+  puts @checkpage
   if  @checkpage
     puts "检查点通过验证，发布产品功能正常"
   else

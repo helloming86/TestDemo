@@ -18,12 +18,13 @@ end
 
 #检查点：登录成功的弹窗和提示
 
-那么(/^弹出(.*)登录提示$/) do |ustat|
+当(/^弹出(.*)登录提示$/) do |ustat|
   @driver = Check_Dialog.new(@drr)
   @checkdialog = @driver.checkdialog(ustat)
 end
 
 那么(/^登录功能正常$/) do
+  puts @checkdialog
   if @checkdialog then
     puts "检查点通过验证，登录功能正常"
   else

@@ -27,6 +27,7 @@ end
 end
 
 那么(/^注册功能正常$/) do
+  puts @checkdialog,@checkpage
   if @checkdialog and @checkpage
     puts "检查点通过验证，注册用户功能正常"
   else
