@@ -1,8 +1,8 @@
 # encoding=utf-8
 require 'selenium-webdriver'
 
-require File.dirname(__FILE__) + '/../tool/product_att_com.rb'
-require File.dirname(__FILE__)+'/upload_file.rb'
+require File.dirname(__FILE__) + '/../elements/product_att_com.rb'
+require File.dirname(__FILE__)+'/../common/upload_file.rb'
 
 class Add_Product_Page
     # 引用module

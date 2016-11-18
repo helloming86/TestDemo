@@ -2,9 +2,9 @@
 require 'selenium-webdriver'
 require 'rspec/expectations'
 
-require File.dirname(__FILE__)+'/action/reg_login_page.rb'
-require File.dirname(__FILE__)+'/action/check_method.rb'
-require File.dirname(__FILE__)+'/action/br_op.rb'
+require File.dirname(__FILE__)+'/page/reg_login_page.rb'
+require File.dirname(__FILE__)+'/common/check_method.rb'
+require File.dirname(__FILE__)+'/common/br_op.rb'
 
 假如(/^打开登录页面$/) do
   @driver = Br_Op.new(@drr)

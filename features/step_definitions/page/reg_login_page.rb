@@ -1,7 +1,7 @@
 # encregoding=utf-8
 require 'selenium-webdriver'
-require File.dirname(__FILE__) + '/../tool/reg_login_com.rb'
-require File.dirname(__FILE__)+'/check_method.rb'
+require File.dirname(__FILE__) + '/../elements/reg_login_com.rb'
+require File.dirname(__FILE__)+'/../common/check_method.rb'
 
 
 

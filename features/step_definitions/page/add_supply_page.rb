@@ -2,7 +2,7 @@
 require 'selenium-webdriver'
 require 'pp'
 
-require File.dirname(__FILE__) + '/../tool/supply_com.rb'
+require File.dirname(__FILE__) + '/../elements/supply_com.rb'
 
 class Add_Supply_Page
     # 引用module

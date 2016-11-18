@@ -1,6 +1,6 @@
 # encoding=utf-8
 require 'selenium-webdriver'
-require File.dirname(__FILE__) + '/../tool/upload_file_com.rb'
+require File.dirname(__FILE__) + '/../elements/upload_file_com.rb'
 
 class Upload_file
     # 引用module

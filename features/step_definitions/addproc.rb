@@ -2,9 +2,9 @@
 require 'selenium-webdriver'
 require 'rspec/expectations'
 
-require File.dirname(__FILE__)+'/action/add_product_page.rb'
-require File.dirname(__FILE__)+'/action/check_method.rb'
-require File.dirname(__FILE__)+'/action/br_op.rb'
+require File.dirname(__FILE__)+'/page/add_product_page.rb'
+require File.dirname(__FILE__)+'/common/check_method.rb'
+require File.dirname(__FILE__)+'/common/br_op.rb'
 
 假如(/^打开发布产品页面$/) do
   @driver = Br_Op.new(@drr)

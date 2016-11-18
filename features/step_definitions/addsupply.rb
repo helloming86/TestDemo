@@ -3,8 +3,8 @@ require 'selenium-webdriver'
 require 'net/http'
 require 'json'
 
-require File.dirname(__FILE__)+'/action/add_supply_page.rb'
-require File.dirname(__FILE__)+'/action/br_op.rb'
+require File.dirname(__FILE__)+'/page/add_supply_page.rb'
+require File.dirname(__FILE__)+'/common/br_op.rb'
 
 假如(/^打开发布供需页面$/) do
   @driver = Br_Op.new(@drr)
