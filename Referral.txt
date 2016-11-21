@@ -1,0 +1,16 @@
+TestDemo                      项目目录
+  --features                   主目录，Cucumber规范，强制必须，测试用例（特性文件）放根目录下，用例实现放在step_definitions目录下
+    --step_definitions         用例实现目录，包含了实现测试场景描述的步骤文件
+      --common                 公用/通用类和方法，比如浏览器操作类、校验类、上传类等
+      --elements               获取页面元素，封装成module，比如将注册登录页面所有页面元素封装为reg_login_com.rb文件
+      --page                   封装页面和操作，比如将登录页封装成login_page.rb文件，并将页面相应操作封装为类和方法
+      --XXX.rb                 场景实现，比如将登陆功能的代码实现封装为login.rb
+    --XXX.feature              Cucumber特性文件，即测试场景与用例设计。包含了场景的描述，也就是对测试用例的描述，比如，将登陆功能测试用例封装为login.feature
+    --support                  支持文件目录，Cucumber会优先执行support目录下的支持文件
+      --testdata               数据目录，测试数据和环境参数等文件在该目录下管理
+        --XXX.yaml             数据文件，用于存取测试数据和环境变量
+      --env.rb                 支持文件，通常用于准备环境变量，比如预加载测试数据
+      --hooks.rb               支持文件，定义了场景开始前和结束后执行的操作，比如，设置开始前打开浏览器，结束后关闭浏览器
+  --image                      引用图片目录
+  --reports                    测试报告目录
+  --vendor                     第三方工具和插件目录
