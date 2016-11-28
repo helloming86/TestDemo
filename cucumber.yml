@@ -1,0 +1,1 @@
+default: -r features/login.feature -f html -o outreport.html
