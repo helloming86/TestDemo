@@ -28,8 +28,10 @@ class Br_Op < BrowserContainer
       @dr.get TTENV["testurl"]["loginurl"]
       add_Cookies
       @dr.get TTENV["testurl"]["addsupplyurl"]
+    when 'indexurl'
+      @dr.get TTENV["testurl"]["indexurl"]
     else
-      @dr.goto TTENV["testurl"]["srcurl"]
+      @dr.get TTENV["testurl"]["srcurl"]
     end
   end
 
