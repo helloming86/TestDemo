@@ -45,42 +45,6 @@ class Index_Page
     get_HotSo.click
   end
 
-  def testMidAd
-    #操作前位置
-    puts "操作前hot_info的位置信息如下"
-    puts @dr.find_element(:class,'hot_info').location
-    puts @dr.find_element(:class,'hot_info').location.x
-    puts @dr.find_element(:class,'hot_info').location.y
-    puts "操作前广告位的位置信息如下"
-    puts get_MidAd.location
-    puts get_MidAd.location.x
-    puts get_MidAd.location.y
-
-    #鼠标移动至广告位
-    @dr.action.move_to(get_MidAd).perform()
-
-    #操作后位置
-    puts "操作后hot_info的位置信息如下"
-    puts @dr.find_element(:class,'hot_info').location
-    puts @dr.find_element(:class,'hot_info').location.x
-    puts @dr.find_element(:class,'hot_info').location.y
-    puts "操作后广告位的位置信息如下"
-    puts get_MidAd.location
-    puts get_MidAd.location.x
-    puts get_MidAd.location.y
-
-    puts @dr.find_element(:class,'hot_info').displayed?
-    wait = Selenium::WebDriver::Wait.new(timeout: 5)
-    wait.until do
-      @dr.find_element(:class,'hot_info').displayed?
-    end
-    if @dr.find_element(:class,'hot_info').displayed?
-      return true
-    else
-      return false
-    end
-  end
-
   def testProShow
     sleep 1
     #默认最热产品，最新产品不显示
@@ -104,7 +68,15 @@ class Index_Page
 
   def testHotSupply
     sleep 2
+    #鼠标移动至热门供需
     @dr.action.move_to(get_HotSup).perform()
+    #等待，直到第条记录出现
+    wait = Selenium::WebDriver::Wait.new(timeout: 20)
+    wait.until do
+      get_HotSup.find_elements(:tag_name,'li')[0].displayed?
+    end
+    #鼠标移动至第一条记录
+    @dr.action.move_to(get_HotSup.find_elements(:tag_name,'li')[0]).perform()
     sleep 1
     get_HotSup.find_elements(:tag_name,'li')[0].click
     sleep 2
@@ -114,9 +86,22 @@ class Index_Page
 
     #执行JS脚本，移动到页面底部，否则不能正确点击超链
     @dr.execute_script('document.body.scrollTop=100000')
-    sleep 5
+    sleep 2
+    #目标的超链接
+    aim_url = get_Link.attribute("href")
+    puts "目标超链的href为" + aim_url
+    sleep 2
+    #点击目标
     get_Link.click
-
+    #点击后的页面
+    sleep 1
+    jump_url = @dr.current_url
+    puts "点击后的页面" + jump_url
+    if aim_url == jump_url then
+      return true
+    else
+      return false
+    end
   end
 
 end

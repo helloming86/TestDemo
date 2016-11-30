@@ -78,7 +78,8 @@ module Index_Com
       #方法二，直接按照超链定位
       #@dr.find_element(:link_text,'新浪')
       #方法三，多元素随机取值
-      @dr.find_element(:id,'two_foot').find_element(:css,'#two_foot > div > div.twofoot_left > div.eq_link > div.eqlink_nr > ul').find_elements(:tag_name,'li')[0]
+      #@dr.find_element(:id,'two_foot').find_element(:css,'#two_foot > div > div.twofoot_left > div.eq_link > div.eqlink_nr > ul').find_elements(:tag_name,'li')[0]
+      @dr.find_element(:link_text,'百度')
     end
 
 

@@ -97,20 +97,6 @@ end
   end
 end
 
-当(/^鼠标悬停在中广告位图片发生变化$/) do
-  @driver = Index_Page.new(@drr)
-  @checkdisplay = @driver.testMidAd
-  sleep 2
-end
-那么(/^中广告位正常$/) do
-  puts @checkdisplay
-  if @checkdisplay
-    puts "检查点通过验证，中广告位正常"
-  else
-    puts "检查点未通过验证，中广告位异常"
-  end
-end
-
 当(/^点击主标签产品列表发生变化$/) do
   @driver = Index_Page.new(@drr)
   @checkdisplay = @driver.testProShow
@@ -127,11 +113,14 @@ end
 end
 
 
-当(/^定位到市场供求并且点击正确跳转$/) do
+当(/^定位到市场供求并且点击页面正确跳转$/) do
   @driver = Index_Page.new(@drr)
+  puts "222"
   @driver.testHotSupply
+  puts "333"
   @driver = Check_PageJump.new(@drr)
   @checkpage = @driver.checkpagejump('supply_demand')
+  puts "444"
   @driver = Br_Op.new(@drr)
   @driver.visit('indexurl')
 end
@@ -147,12 +136,17 @@ end
 end
 
 
-当(/^定位到友情链接并且点击正常跳转$/) do
+当(/^定位到友情链接并且点击页面正常跳转$/) do
   @driver = Index_Page.new(@drr)
-  puts @driver.testFriendLink
+  @checkpage = @driver.testFriendLink
 end
 
 #检查点：
 那么(/^友情链接正常$/) do
-  puts "呵呵呵"
+  puts @checkpage
+  if  @checkpage
+    puts "检查点通过验证，友情链接正常"
+  else
+    puts "检查点未通过验证，友情链接异常"
+  end
 end
