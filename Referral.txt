@@ -1,4 +1,6 @@
 TestDemo                      项目目录
+  --config                     配置目录，存放项目的一些配置文件
+    --cucumber.yml             cucumber命令集，用于rake执行
   --features                   主目录，Cucumber规范，强制必须，测试用例（特性文件）放根目录下，用例实现放在step_definitions目录下
     --step_definitions         用例实现目录，包含了实现测试场景描述的步骤文件
       --common                 公用/通用类和方法，比如浏览器操作类、校验类、上传类等

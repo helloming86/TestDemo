@@ -79,7 +79,7 @@ class Check_PageJump
     puts "刚执行校验页面跳转方法的页面(" + @dr.current_url + ")"
     sleep 5
     puts "等待5秒后的页面(" + @dr.current_url + ")"
-    if textinfo == @dr.current_url then
+    if @dr.current_url.include?(textinfo) then
       puts "页面正确跳转"
       puts "跳转页面的Title为：#{@dr.title}"
       puts "跳转页面的URL为：#{@dr.current_url}"
